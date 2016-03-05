@@ -65,7 +65,7 @@ class Scripts
         while (false !== ($entry = $pluginDir->read())) {
             $entryPath = sprintf('%s/%s', $pluginDir, $entry);
             if ($entry != '.' && $entry != '..' && is_dir($entryPath)) {
-                exec(sprintf('%s vendor/bin/wp --allow-root plugin activate %s', self::$wpCli));
+				exec(sprintf('%s --allow-root plugin activate %s', self::$wpCli, $entry));
             }
         }
     }
