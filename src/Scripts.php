@@ -1,6 +1,6 @@
 <?php
 
-namespace Salaros\Wordpress\MrPress\Composer;
+namespace Salaros\MrPress\Composer;
 
 use Composer\Script\Event;
 use Dotenv\Dotenv;
