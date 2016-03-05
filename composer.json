@@ -1,0 +1,34 @@
+{
+	"name"       : "salaros/mr-press-composer",
+	"description": "Set of tools used during installation and configuration of Mr. Press project.",
+	"keywords"   : [
+		"wordpress", "composer", "script", "deploy", "database"
+	],
+	"type"       : "library",
+	"license"    : "MIT",
+	"homepage"   : "https://github.com/salaros/mr-press-composer",
+	"support"    : {
+		"issues"      : "https://github.com/salaros/mr-press-composer/issues",
+		"source"      : "https://github.com/salaros/mr-press-composer"
+	},
+	"authors"    : [
+		{
+			"name"    : "Zhmayev Yaroslav",
+			"email"   : "salaros@yandex.ru",
+			"homepage": "https://github.com/salaros",
+			"role"    : "Developer"
+		}
+	],
+	"require": {
+		"php"                                           : ">=5.5.0",
+		"wp-cli/wp-cli"									: "~0.20",
+		"vlucas/phpdotenv"								: "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Salaros\\MrPress\\Composer\\"				: "src/"
+		}
+	},
+	"minimum-stability"                                 : "stable",
+	"prefer-stable"                                     : true
+}
