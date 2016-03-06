@@ -46,7 +46,7 @@ class Scripts
 
         self::$dotEnv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD'])->notEmpty();
 
-        $shellCmd = sprintf('%s --allow-root core install --url=%s --title=%s --admin_user=%s --admin_password=%s --admin_email=%s --skip-email',
+        $shellCmd = sprintf('%s --allow-root core install --url="%s" --title="%s" --admin_user="%s" --admin_password="%s" --admin_email="%s" --skip-email',
                             self::$wpCli,
                             getenv('WP_HOME'),
                             getenv('WP_TITLE'),
