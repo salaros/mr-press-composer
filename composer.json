@@ -21,7 +21,7 @@
     ],
     "require": {
         "php"                                           : ">=5.5.0",
-        "wp-cli/wp-cli"                                 : "~0.20",
+        "wp-cli/wp-cli"                                 : "~1.0",
         "vlucas/phpdotenv"                              : "*"
     },
     "autoload": {
