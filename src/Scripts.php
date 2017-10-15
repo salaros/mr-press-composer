@@ -68,13 +68,21 @@ class Scripts
 
         self::$dotEnv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD'])->notEmpty();
 
-        $shellCmd = sprintf('%s --allow-root core install --url="%s" --title="%s" --admin_user="%s" --admin_password="%s" --admin_email="%s" --skip-email',
-                            self::$wpCli,
-                            getenv('WP_HOME'),
-                            getenv('WP_TITLE'),
-                            getenv('WP_ADMIN'),
-                            getenv('WP_ADMIN_PASSWORD'),
-                            getenv('WP_ADMIN_EMAIL'));
+        $shellCmd = sprintf(
+            '%s --allow-root core install 
+                --url="%s" 
+                --title="%s" 
+                --admin_user="%s" 
+                --admin_password="%s" 
+                --admin_email="%s" 
+                --skip-email',
+            self::$wpCli,
+            getenv('WP_HOME'),
+            getenv('WP_TITLE'),
+            getenv('WP_ADMIN'),
+            getenv('WP_ADMIN_PASSWORD'),
+            getenv('WP_ADMIN_EMAIL')
+        );
         echo shell_exec($shellCmd);
     }
 
