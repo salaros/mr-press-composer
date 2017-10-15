@@ -22,7 +22,7 @@
     "require": {
         "php"                                           : ">=5.5.0",
         "wp-cli/wp-cli"                                 : "~1.0",
-        "vlucas/phpdotenv"                              : "*"
+        "vlucas/phpdotenv"                              : "~2.0",
     },
     "autoload": {
         "psr-4": {
