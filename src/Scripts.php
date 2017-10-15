@@ -31,7 +31,7 @@ class Scripts
 
         $composer = $event->getComposer();
         self::$vendorDir = $composer->getConfig()->get('vendor-dir');
-        self::$rootDir = preg_replace('/\/vendor/', '', self::$vendorDir);
+        self::$rootDir = realpath(dirname(self::$vendorDir));
 
         self::$dotEnv = new Dotenv(self::$rootDir);
         self::$dotEnv->load();
