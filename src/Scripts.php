@@ -4,6 +4,7 @@ namespace Salaros\MrPress\Composer;
 
 use Composer\Script\Event;
 use Dotenv\Dotenv;
+use qi\crontab\CrontabManager;
 
 require_once sprintf('%s/autoload.php', self::$vendorDir);
 
@@ -114,5 +115,27 @@ class Scripts
                 echo shell_exec($shellCmd);
             }
         }
+    }
+
+    /**
+     * Create crontab entry for www-data user
+     *
+     * @param Event   $event  Script event object
+     * 
+     * @return void
+     */ 
+    public static function createCronjob(Event $event)
+    {
+        if (empty(getenv('DISABLE_WP_CRON'))) {
+            return;
+        }
+
+        $cronScript = sprintf('%s/public/wp-cron.php', self::$rootDir);
+        $crontab = new CrontabManager();
+        $job = $crontab->newJob();
+        $jobCmd = sprintf('/usr/bin/php %s /dev/null 2>&1', $cronScript);
+        $job->on('*/2 * * * *')->doJob($jobCmd);
+        $crontab->add($job);
+        $crontab->save();
     }
 }
