@@ -23,7 +23,7 @@
         "php"                                           : ">=5.5.0",
         "wp-cli/wp-cli"                                 : "~1.0",
         "vlucas/phpdotenv"                              : "~2.0",
-        "peppeocchi/php-cron-scheduler"                 : "~2.0"
+        "qi-interactive/cron"                           : "*@dev"
     },
     "autoload": {
         "psr-4": {
