@@ -12,6 +12,14 @@ class Scripts
     private static $dotEnv;
     private static $wpCli;
 
+
+    /**
+     * Main method which initializes Scripts class instance
+     *
+     * @param Event   $event  Script event object
+     * 
+     * @return void
+     */ 
     public static function init(Event $event)
     {
         if (!empty(self::$vendorDir) && !empty(self::$rootDir) && !empty(self::$wpCli) && self::$dotEnv instanceof Dotenv) {
@@ -30,6 +38,13 @@ class Scripts
         self::$wpCli = sprintf('%s/bin/wp', self::$vendorDir);
     }
 
+    /**
+     * Creating WordPress database via WP CLI by using configs loaded from .env file
+     *
+     * @param Event   $event  Script event object
+     * 
+     * @return void
+     */ 
     public static function createDatabase(Event $event)
     {
         self::init($event);
@@ -40,6 +55,13 @@ class Scripts
         echo shell_exec(sprintf('%s --allow-root db create', self::$wpCli));
     }
 
+    /**
+     * Install WordPress by creating tables on the DB via WP CLI
+     *
+     * @param Event   $event  Script event object
+     * 
+     * @return void
+     */ 
     public static function createTables(Event $event)
     {
         self::init($event);
@@ -56,6 +78,14 @@ class Scripts
         echo shell_exec($shellCmd);
     }
 
+
+    /**
+     * Activate all currently installed plugins
+     *
+     * @param Event   $event  Script event object
+     * 
+     * @return void
+     */ 
     public static function activatePlugins(Event $event)
     {
         self::init($event);
