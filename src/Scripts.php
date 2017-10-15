@@ -126,6 +126,7 @@ class Scripts
      */ 
     public static function createCronjob(Event $event)
     {
+        self::init($event);
 
         if (1 !== intval(getenv('DISABLE_WP_CRON'))) {
             return;
