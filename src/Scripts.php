@@ -132,12 +132,21 @@ class Scripts
             return;
         }
 
-        $cronScript = sprintf('%s/public/wp-cron.php', self::$rootDir);
+        $cronScript = sprintf('%s/public/wp-cron.php', self::$rootDir); 
         $crontab = new CrontabManager();
-        $job = $crontab->newJob();
-        $jobCmd = sprintf('/usr/bin/php %s /dev/null 2>&1', $cronScript);
-        $job->on('*/2 * * * *')->doJob($jobCmd);
-        $crontab->add($job);
-        $crontab->save();
+        $crontab->user = 'www-data';
+
+        $jobTicks = '*/2 * * * *';
+        $jobCmd = sprintf('/usr/bin/php -f %s DOING_CRON=1 /dev/null 2>&1', $cronScript);
+        $job_regex = str_replace('/', '\/', $jobCmd);
+        if ($crontab->jobExists($job_regex)) {
+            echo(sprintf("Not creating a cron job (%s). Because it already exists!\n", $jobCmd));
+            return;
+        }
+
+        $job = $crontab->newJob();        
+        $job->on($jobTicks)->doJob($jobCmd);
+        $crontab->add($job); 
+        $crontab->save(false);
     }
 }
