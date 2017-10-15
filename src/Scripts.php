@@ -5,6 +5,8 @@ namespace Salaros\MrPress\Composer;
 use Composer\Script\Event;
 use Dotenv\Dotenv;
 
+require_once sprintf('%s/autoload.php', self::$vendorDir);
+
 class Scripts
 {
     private static $vendorDir;
@@ -29,8 +31,6 @@ class Scripts
         $composer = $event->getComposer();
         self::$vendorDir = $composer->getConfig()->get('vendor-dir');
         self::$rootDir = preg_replace('/\/vendor/', '', self::$vendorDir);
-
-        require_once sprintf('%s/autoload.php', self::$vendorDir);
 
         self::$dotEnv = new Dotenv(self::$rootDir);
         self::$dotEnv->load();
