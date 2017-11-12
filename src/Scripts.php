@@ -129,8 +129,8 @@ class Scripts
 
         $jobTicks = '*/2 * * * *';
         $jobCmd = sprintf('/usr/bin/php -f %s DOING_CRON=1 /dev/null 2>&1', $cronScript);
-        $job_regex = str_replace('/', '\/', $jobCmd);
-        if ($crontab->jobExists($job_regex)) {
+        $jobRegex = str_replace('/', '\/', $jobCmd);
+        if ($crontab->jobExists($jobRegex)) {
             echo(sprintf("Not creating a cron job (%s). Because it already exists!\n", $jobCmd));
             return;
         }
@@ -177,7 +177,7 @@ class Scripts
             return;
         }
 
-        if (!SaltsGenerator::writeToFile( 'env', '.env', [ 'WP_CACHE_KEY_SALT' ] )) {
+        if (!SaltsGenerator::writeToFile('env', '.env', [ 'WP_CACHE_KEY_SALT' ])) {
             printf("Failed to append WordPress salts to .env file!\n");
             return;
         }
