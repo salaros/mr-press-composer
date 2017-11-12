@@ -16,11 +16,9 @@ class Scripts
 
     /**
      * Main method which initializes Scripts class instance
-     *
      * @param Event   $event  Script event object
-     * 
      * @return void
-     */ 
+     */
     public static function init(Event $event)
     {
         if (!empty(self::$vendorDir) && !empty(self::$rootDir) && !empty(self::$wpCli) && self::$dotEnv instanceof Dotenv) {
@@ -41,11 +39,9 @@ class Scripts
 
     /**
      * Creating WordPress database via WP CLI by using configs loaded from .env file
-     *
      * @param Event   $event  Script event object
-     * 
      * @return void
-     */ 
+     */
     public static function createDatabase(Event $event)
     {
         self::init($event);
@@ -58,11 +54,9 @@ class Scripts
 
     /**
      * Install WordPress by creating tables on the DB via WP CLI
-     *
      * @param Event   $event  Script event object
-     * 
      * @return void
-     */ 
+     */
     public static function createTables(Event $event)
     {
         self::init($event);
@@ -90,11 +84,9 @@ class Scripts
 
     /**
      * Activate all currently installed plugins
-     *
      * @param Event   $event  Script event object
-     * 
      * @return void
-     */ 
+     */
     public static function activatePlugins(Event $event)
     {
         self::init($event);
@@ -119,11 +111,9 @@ class Scripts
 
     /**
      * Create crontab entry for www-data user
-     *
      * @param Event   $event  Script event object
-     * 
      * @return void
-     */ 
+     */
     public static function createCronjob(Event $event)
     {
         self::init($event);
@@ -132,7 +122,8 @@ class Scripts
             return;
         }
 
-        $cronScript = sprintf('%s/public/wp-cron.php', self::$rootDir); 
+        $cronScript = sprintf('%s/public/wp-cron.php', self::$rootDir);
+
         $crontab = new CrontabManager();
         $crontab->user = 'www-data';
 
@@ -144,16 +135,19 @@ class Scripts
             return;
         }
 
-        $job = $crontab->newJob();        
+        $job = $crontab->newJob();
+
         $job->on($jobTicks)->doJob($jobCmd);
-        $crontab->add($job); 
+        $crontab->add($job);
+
         $crontab->save(false);
     }
 
     public static function addSalts(Event $event)
     {
         self::init($event);
-        
+
+
         $defaultSalts = [
             'AUTH_KEY',
             'SECURE_AUTH_KEY',
