@@ -7,6 +7,9 @@ use Dotenv\Dotenv;
 use qi\crontab\CrontabManager;
 use Salaros\WordPress\SaltsGenerator;
 
+/**
+ * Composer scripts for Mr.Press installations
+ */
 class Scripts
 {
     private static $vendorDir;
@@ -17,6 +20,8 @@ class Scripts
     /**
      * Main method which initializes Scripts class instance
      * @param Event   $event  Script event object
+     * @access public
+     * @static
      * @return void
      */
     public static function init(Event $event)
@@ -40,6 +45,8 @@ class Scripts
     /**
      * Creating WordPress database via WP CLI by using configs loaded from .env file
      * @param Event   $event  Script event object
+     * @access public
+     * @static
      * @return void
      */
     public static function createDatabase(Event $event)
@@ -55,6 +62,8 @@ class Scripts
     /**
      * Install WordPress by creating tables on the DB via WP CLI
      * @param Event   $event  Script event object
+     * @access public
+     * @static
      * @return void
      */
     public static function createTables(Event $event)
@@ -85,6 +94,8 @@ class Scripts
     /**
      * Activate all currently installed plugins
      * @param Event   $event  Script event object
+     * @access public
+     * @static
      * @return void
      */
     public static function activatePlugins(Event $event)
@@ -112,6 +123,8 @@ class Scripts
     /**
      * Create crontab entry for www-data user
      * @param Event   $event  Script event object
+     * @access public
+     * @static
      * @return void
      */
     public static function createCronjob(Event $event)
@@ -143,6 +156,13 @@ class Scripts
         $crontab->save(false);
     }
 
+    /**
+     * Appends WordPress salts to .env file if needed
+     * @param Event   $event  Script event object
+     * @access public
+     * @static
+     * @return void
+     */
     public static function addSalts(Event $event)
     {
         self::init($event);
