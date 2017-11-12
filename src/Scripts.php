@@ -5,6 +5,7 @@ namespace Salaros\MrPress\Composer;
 use Composer\Script\Event;
 use Dotenv\Dotenv;
 use qi\crontab\CrontabManager;
+use Salaros\WordPress\SaltsGenerator;
 
 class Scripts
 {
@@ -12,7 +13,6 @@ class Scripts
     private static $rootDir;
     private static $dotEnv;
     private static $wpCli;
-
 
     /**
      * Main method which initializes Scripts class instance
@@ -148,5 +148,49 @@ class Scripts
         $job->on($jobTicks)->doJob($jobCmd);
         $crontab->add($job); 
         $crontab->save(false);
+    }
+
+    public static function addSalts(Event $event)
+    {
+        self::init($event);
+        
+        $defaultSalts = [
+            'AUTH_KEY',
+            'SECURE_AUTH_KEY',
+            'LOGGED_IN_KEY',
+            'NONCE_KEY',
+            'AUTH_SALT',
+            'SECURE_AUTH_SALT',
+            'LOGGED_IN_SALT',
+            'NONCE_SALT',
+            'WP_CACHE_KEY_SALT',
+        ];
+
+        $saltsAreOK = true;
+        $envContents = file_get_contents(sprintf('%s/.env', self::$rootDir));
+        foreach ($defaultSalts as $salt) {
+            $saltsAreOK &= (false !== stripos($envContents, $salt));
+            if (false === $saltsAreOK) {
+                break;
+            }
+        }
+
+        if ($saltsAreOK) {
+            self::$dotEnv->required($defaultSalts)->notEmpty();
+            printf(
+                "Skipping WordPress salts generation, because .env already contains all the required variables\n"
+            );
+            return;
+        }
+
+        if (!SaltsGenerator::writeToFile( 'env', '.env', [ 'WP_CACHE_KEY_SALT' ] )) {
+            printf("Failed to append WordPress salts to .env file!\n");
+            return;
+        }
+
+        self::$dotEnv->overload();
+        self::$dotEnv->required($defaultSalts)->notEmpty();
+
+        printf("WordPress salts have been generated successfully!\n");
     }
 }

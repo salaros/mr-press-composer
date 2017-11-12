@@ -23,7 +23,8 @@
         "php"                                           : ">=5.5.0",
         "wp-cli/wp-cli"                                 : "~1.0",
         "vlucas/phpdotenv"                              : "~2.0",
-        "qi-interactive/cron"                           : "*@dev"
+        "qi-interactive/cron"                           : "*@dev",
+        "salaros/wp-salts"                              : "~0.3.0"
     },
     "autoload": {
         "psr-4": {
