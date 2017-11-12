@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="CustomCfg">
+  <description>
+    Custom PSR2 ruleset
+  </description>
+
+  <arg name="tab-width" value="4"/>
+
+  <rule ref="PSR2"></rule>
+
+  <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="4"/>
+      <property name="tabIndent" value="false"/>
+    </properties>
+  </rule>
+
+  <!-- rule ref="PEAR.Commenting.FileComment.Missing" /-->
+  <rule ref="PEAR.Commenting.ClassComment.Missing" />
+  <rule ref="PEAR.Commenting.FunctionComment.Missing" />
+</ruleset>
