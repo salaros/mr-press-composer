@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # General information about the project.
-project = u'<project name>'
-copyright = u'<year>, <author / company>'
-author = u'<author>'
+project = u'Mr. Press Composer'
+copyright = u'2017, Zhmayev Yaroslav aka salaros'
+author = u'Zhmayev Yaroslav aka salaros'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '<projectNamePascalCase>'
+htmlhelp_basename = 'MrPressComposer'
 
 # The version info for the project you're documenting.
 #
 # The short X.Y version.
-version = u'<version>'
+version = u'0.5.0'
 # The full version, including alpha/beta/rc tags.
-release = u'<version>'
+release = u'0.5.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
