@@ -26,11 +26,19 @@
         "qi-interactive/cron"                           : "*@dev",
         "salaros/wp-salts"                              : "~0.3.0"
     },
+    "require-dev": {
+        "sphpdox/sphpdox"                               : "dev-master@dev"
+    },
     "autoload": {
         "psr-4": {
             "Salaros\\MrPress\\Composer\\"              : "src/"
         }
     },
     "minimum-stability"                                 : "stable",
-    "prefer-stable"                                     : true
+    "prefer-stable"                                     : true,
+    "scripts": {
+        "docs": [
+            "cd ./docs && make html"
+        ]
+    }
 }
