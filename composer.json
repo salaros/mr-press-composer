@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php"                                           : ">=5.5.0",
+        "php"                                           : ">=5.4.0",
         "wp-cli/wp-cli"                                 : "~1.0",
         "vlucas/phpdotenv"                              : "~2.0",
         "qi-interactive/cron"                           : "*@dev",
