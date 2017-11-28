@@ -197,7 +197,7 @@ class Scripts
             return;
         }
 
-        if (!SaltsGenerator::writeToFile('env', '.env', [ 'WP_CACHE_KEY_SALT' ])) {
+        if (false !== SaltsGenerator::writeToFile('env', '.env', ['WP_CACHE_KEY_SALT'])) {
             printf("Failed to append WordPress salts to .env file!\n");
             return;
         }
