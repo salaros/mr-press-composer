@@ -21,7 +21,7 @@
     ],
     "require": {
         "php"                                           : ">=5.4.0",
-        "wp-cli/wp-cli"                                 : "~1.0",
+        "wp-cli/wp-cli"                                 : "~1.4.0",
         "vlucas/phpdotenv"                              : "~2.0",
         "qi-interactive/cron"                           : "*@dev",
         "salaros/wp-salts"                              : "~0.3.0"
