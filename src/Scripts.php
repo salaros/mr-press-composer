@@ -133,7 +133,7 @@ class Scripts
     {
         self::init($event);
 
-        if (1 !== intval(getenv('DISABLE_WP_CRON'))) {
+        if (1 > intval(getenv('DISABLE_WP_CRON'))) {
             return;
         }
 
