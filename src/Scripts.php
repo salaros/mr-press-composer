@@ -36,9 +36,11 @@ class Scripts
 
         require_once sprintf('%s/autoload.php', self::$vendorDir);
 
-        self::$dotEnv = new Dotenv(self::$rootDir);
-        self::$dotEnv->load();
-
+        $envFilePath = sprintf('%s%s.env', self::$rootDir, DIRECTORY_SEPARATOR);
+        if (file_exists($envFilePath)) {
+            self::$dotEnv = new Dotenv(self::$rootDir);
+            self::$dotEnv->load();
+        }
         self::$wpCli = sprintf('%s/bin/wp', self::$vendorDir);
     }
 
@@ -73,12 +75,12 @@ class Scripts
         self::$dotEnv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD'])->notEmpty();
 
         $shellCmd = sprintf(
-            '%s --allow-root core install 
-                --url="%s" 
-                --title="%s" 
-                --admin_user="%s" 
-                --admin_password="%s" 
-                --admin_email="%s" 
+            '%s --allow-root core install
+                --url="%s"
+                --title="%s"
+                --admin_user="%s"
+                --admin_password="%s"
+                --admin_email="%s"
                 --skip-email',
             self::$wpCli,
             getenv('WP_HOME'),
@@ -167,7 +169,14 @@ class Scripts
     {
         self::init($event);
 
+        $envFilePath = sprintf('%s%s.env', self::$rootDir, DIRECTORY_SEPARATOR);
+        $envSampleFile = sprintf('%s%s.env.example', self::$rootDir, DIRECTORY_SEPARATOR);
+        if (!file_exists($envFilePath)) {
+            copy($envSampleFile, $envFilePath);
+            self::$dotEnv = new Dotenv(self::$rootDir);
+        }
 
+        $saltsAreOK = true;
         $defaultSalts = [
             'AUTH_KEY',
             'SECURE_AUTH_KEY',
@@ -180,8 +189,7 @@ class Scripts
             'WP_CACHE_KEY_SALT',
         ];
 
-        $saltsAreOK = true;
-        $envContents = file_get_contents(sprintf('%s/.env', self::$rootDir));
+        $envContents = file_get_contents($envFilePath);
         foreach ($defaultSalts as $salt) {
             $saltsAreOK &= (false !== stripos($envContents, $salt));
             if (false === $saltsAreOK) {
@@ -197,7 +205,7 @@ class Scripts
             return;
         }
 
-        if (false !== SaltsGenerator::writeToFile('env', '.env', ['WP_CACHE_KEY_SALT'])) {
+        if (false === SaltsGenerator::writeToFile('env', '.env', ['WP_CACHE_KEY_SALT'])) {
             printf("Failed to append WordPress salts to .env file!\n");
             return;
         }
